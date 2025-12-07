@@ -1,2 +1,4 @@
-# home-showcase
-A responsive web app for showcasing residential properties with interactive floor plans, room details, and viewing request functionality.
+# Home Showcase
+
+  An interactive property viewing web application that allows sellers to showcase their home to potential buyers through an
+  engaging floor plan interface.

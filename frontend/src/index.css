@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+/* Custom CSS variables */
+:root {
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-secondary: #64748b;
+  --color-accent: #f59e0b;
+  --color-success: #10b981;
+  --color-error: #ef4444;
+}
+
+/* Floor plan room hover effect */
+.floor-plan-room {
+  transition: all 0.2s ease;
+  cursor: pointer;
+  fill: rgba(59, 130, 246, 0.1);
+  stroke: #3b82f6;
+  stroke-width: 2;
+}
+
+.floor-plan-room:hover {
+  fill: rgba(59, 130, 246, 0.3);
+}
+
+.floor-plan-room.selected {
+  fill: rgba(59, 130, 246, 0.4);
+  stroke: #1d4ed8;
+  stroke-width: 3;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
