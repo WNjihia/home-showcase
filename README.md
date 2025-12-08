@@ -33,6 +33,16 @@ An interactive property viewing web application that allows a seller to showcase
 
 ### Main Considerations for Production
 
+| Layer | Technology |
+|-------|------------|
+| **Frontend Hosting** | Vercel / Netlify |
+| **Backend Hosting** | AWS ECS |
+| **Database** | PostgreSQL (Supabase / AWS RDS) |
+| **File Storage** | S3 / Cloudflare R2 |
+| **CDN** | CloudFront
+| **Monitoring** | Sentry + UptimeRobot / DataDog |
+| **Containerization** | Docker + Docker Compose |
+
 #### 1. Scalability
 - Horizontal scaling of backend behind a load balancer
 - Managed PostgreSQL with read replicas
