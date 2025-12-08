@@ -159,7 +159,3 @@ curl -X POST http://localhost:8000/api/viewing-requests \
     "message": "Looking forward to viewing!"
   }'
 ```
-
----
-
-## Production Considerations
