@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useViewingRequest } from '../hooks/useApi';
+import { useDebounce } from '../hooks/useDebounce';
 
 export default function ViewingForm({ propertyId }) {
   const { submitRequest, loading, error, success, reset } = useViewingRequest();
@@ -60,10 +61,9 @@ export default function ViewingForm({ propertyId }) {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (!validate()) return;
+  // Actual submit logic
+  const doSubmit = async () => {
+    if (!validate() || loading) return;
 
     try {
       await submitRequest({
@@ -82,6 +82,14 @@ export default function ViewingForm({ propertyId }) {
     } catch (err) {
       // Error handled by hook
     }
+  };
+
+  // Debounced submit to prevent double-clicks
+  const debouncedSubmit = useDebounce(doSubmit, 1000);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    debouncedSubmit();
   };
 
   const getMinDate = () => {
