@@ -24,6 +24,10 @@ class Property(Base):
     features = Column(JSON, default=list)
     images = Column(JSON, default=list)
 
+    # Relationships
+    rooms = relationship("Room", back_populates="property", cascade="all, delete-orphan")
+    viewing_requests = relationship("ViewingRequest", back_populates="property", cascade="all, delete-orphan")
+
 
 class Room(Base):
     """Model representing a room within a property."""
@@ -36,9 +40,11 @@ class Room(Base):
     description = Column(Text, nullable=False)
     dimensions = Column(String(50), nullable=True)
     features = Column(JSON, default=list)
-    floor_plan_coords = Column(JSON, nullable=False)
     images = Column(JSON, default=list)
     display_order = Column(Integer, default=0)
+
+    # Relationships
+    property = relationship("Property", back_populates="rooms")
 
 
 class ViewingRequest(Base):
@@ -55,4 +61,7 @@ class ViewingRequest(Base):
     message = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     status = Column(String(20), default="pending")
+
+    # Relationships
+    property = relationship("Property", back_populates="viewing_requests")
  
