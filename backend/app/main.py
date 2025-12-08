@@ -10,7 +10,7 @@ from .seed import create_tables, seed_data
 
 # Create FastAPI app
 app = FastAPI(
-    title="Home Showcase API",
+    title="HomeShowCase API",
     description="API for showcasing a home to potential buyers",
     version="1.0.0"
 )

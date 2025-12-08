@@ -16,8 +16,8 @@ class PropertyBase(BaseModel):
     year_built: int
     lot_size: Optional[float] = None
     description: str
-    features: List[str] = Field(default_factory=list)
-    images: List[str] = Field(default_factory=list)
+    features: list[str] = []
+    images: list[str] = []
 
 
 class PropertyResponse(PropertyBase):
@@ -34,8 +34,8 @@ class RoomResponse(BaseModel):
     room_type: str
     description: str
     dimensions: Optional[str] = None
-    features: List[str] = Field(default_factory=list)
-    images: List[str] = Field(default_factory=list)
+    features: list[str] = []
+    images: list[str] = []
     display_order: int = 0
 
     class Config:
@@ -43,7 +43,7 @@ class RoomResponse(BaseModel):
 
 
 class PropertyWithRoomsResponse(PropertyResponse):
-    rooms: List[RoomResponse] = Field(default_factory=list)
+    rooms: list[RoomResponse] = []
 
 
 class ViewingRequestCreate(BaseModel):
@@ -52,8 +52,8 @@ class ViewingRequestCreate(BaseModel):
     name: str = Field(..., min_length=2, max_length=100)
     email: EmailStr
     phone: str = Field(..., min_length=10, max_length=30)
-    preferred_date: date
-    preferred_time: Optional[time] = None
+    preferred_date: str
+    preferred_time: Optional[str] = None
     message: Optional[str] = Field(None, max_length=500)
 
     @field_validator("phone")
@@ -62,6 +62,19 @@ class ViewingRequestCreate(BaseModel):
         cleaned = re.sub(r"[\s\-\(\)\.]", "", v)
         if not re.match(r"^\+?\d{10,15}$", cleaned):
             raise ValueError("Please enter a valid phone number (10–15 digits)")
+        return v
+    
+    @field_validator('preferred_date')
+    @classmethod
+    def validate_date(cls, v: str) -> str:
+        try:
+            date = datetime.strptime(v, '%Y-%m-%d')
+            if date.date() < datetime.now().date():
+                raise ValueError('Preferred date must be in the future')
+        except ValueError as e:
+            if 'does not match format' in str(e):
+                raise ValueError('Date must be in YYYY-MM-DD format')
+            raise
         return v
 
 
@@ -72,8 +85,8 @@ class ViewingRequestResponse(BaseModel):
     name: str
     email: EmailStr
     phone: str
-    preferred_date: date
-    preferred_time: Optional[time]
+    preferred_date: str
+    preferred_time: Optional[str]
     message: Optional[str]
     created_at: datetime
     status: str
