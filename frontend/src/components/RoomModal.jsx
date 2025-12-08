@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import LazyImage from './LazyImage';
 
 export default function RoomModal({ room, onClose }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -69,10 +70,10 @@ export default function RoomModal({ room, onClose }) {
             <div className="relative mb-8">
               {/* Main Image */}
               <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-gray-100">
-                <img
+                <LazyImage
                   src={getImageUrl(images[currentImageIndex])}
                   alt={`${room.name} - Image ${currentImageIndex + 1}`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full"
                 />
 
                 {/* Navigation Arrows */}
@@ -111,10 +112,10 @@ export default function RoomModal({ room, onClose }) {
                           : 'opacity-60 hover:opacity-100'
                       }`}
                     >
-                      <img
+                      <LazyImage
                         src={getImageUrl(image)}
                         alt={`${room.name} - Thumbnail ${index + 1}`}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full"
                       />
                     </button>
                   ))}

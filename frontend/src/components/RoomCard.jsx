@@ -1,3 +1,5 @@
+import LazyImage from './LazyImage';
+
 export default function RoomCard({ room, onClick }) {
   const getImageUrl = (imagePath) => {
     const filename = imagePath.split('/').pop();
@@ -57,11 +59,13 @@ export default function RoomCard({ room, onClick }) {
       {/* Image Container */}
       <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-gray-100">
         {thumbnail ? (
-          <img
-            src={thumbnail}
-            alt={room.name}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
+          <div className="w-full h-full transition-transform duration-300 group-hover:scale-105">
+            <LazyImage
+              src={thumbnail}
+              alt={room.name}
+              className="w-full h-full"
+            />
+          </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center text-gray-400">
             {getRoomIcon(room.room_type)}

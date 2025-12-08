@@ -1,13 +1,7 @@
+import LazyImage from './LazyImage';
+
 export default function PropertyHero({ property, onShowAllPhotos }) {
   if (!property) return null;
-
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat('nl-NL', {
-      style: 'currency',
-      currency: 'EUR',
-      maximumFractionDigits: 0,
-    }).format(price);
-  };
 
   // Get images from property and rooms
   const getImageUrl = (imagePath) => {
@@ -48,10 +42,10 @@ export default function PropertyHero({ property, onShowAllPhotos }) {
             {/* Main Large Image */}
             <div className="md:col-span-2 md:row-span-2 relative">
               {displayImages[0] && (
-                <img
+                <LazyImage
                   src={getImageUrl(displayImages[0])}
                   alt={property.address}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full"
                 />
               )}
             </div>
@@ -59,10 +53,10 @@ export default function PropertyHero({ property, onShowAllPhotos }) {
             {/* Smaller Images */}
             {displayImages.slice(1, 5).map((image, index) => (
               <div key={index} className="hidden md:block relative">
-                <img
+                <LazyImage
                   src={getImageUrl(image)}
                   alt={`${property.address} - ${index + 2}`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full"
                 />
               </div>
             ))}
