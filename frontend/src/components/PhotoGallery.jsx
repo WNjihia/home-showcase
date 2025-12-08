@@ -37,25 +37,25 @@ export default function PhotoGallery({ images, onClose, initialIndex = 0 }) {
   return (
     <div className="fixed inset-0 z-50 bg-black">
       {/* Header */}
-      <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between p-4 bg-gradient-to-b from-black/50 to-transparent">
+      <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between p-3 md:p-4 bg-gradient-to-b from-black/50 to-transparent">
         <button
           onClick={onClose}
-          className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
+          className="flex items-center gap-1.5 md:gap-2 text-white hover:text-gray-300 transition-colors"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
-          <span className="text-sm font-medium">Close</span>
+          <span className="text-sm font-medium hidden sm:inline">Close</span>
         </button>
 
         <div className="text-white text-sm">
           {currentIndex + 1} / {images.length}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 md:gap-2">
           <button
             onClick={() => setViewMode('single')}
-            className={`p-2 rounded-lg transition-colors ${
+            className={`p-1.5 md:p-2 rounded-lg transition-colors ${
               viewMode === 'single' ? 'bg-white/20 text-white' : 'text-white/70 hover:text-white'
             }`}
           >
@@ -65,7 +65,7 @@ export default function PhotoGallery({ images, onClose, initialIndex = 0 }) {
           </button>
           <button
             onClick={() => setViewMode('grid')}
-            className={`p-2 rounded-lg transition-colors ${
+            className={`p-1.5 md:p-2 rounded-lg transition-colors ${
               viewMode === 'grid' ? 'bg-white/20 text-white' : 'text-white/70 hover:text-white'
             }`}
           >
@@ -78,13 +78,13 @@ export default function PhotoGallery({ images, onClose, initialIndex = 0 }) {
 
       {viewMode === 'single' ? (
         /* Single Image View */
-        <div className="h-full flex items-center justify-center p-4 pt-16 pb-24">
+        <div className="h-full flex items-center justify-center p-2 md:p-4 pt-14 md:pt-16 pb-20 md:pb-24">
           {/* Previous Button */}
           <button
             onClick={goPrev}
-            className="absolute left-4 z-10 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
+            className="absolute left-2 md:left-4 z-10 p-1.5 md:p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
@@ -99,17 +99,17 @@ export default function PhotoGallery({ images, onClose, initialIndex = 0 }) {
           {/* Next Button */}
           <button
             onClick={goNext}
-            className="absolute right-4 z-10 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
+            className="absolute right-2 md:right-4 z-10 p-1.5 md:p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
         </div>
       ) : (
         /* Grid View */
-        <div className="h-full overflow-y-auto pt-16 pb-4 px-4">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+        <div className="h-full overflow-y-auto pt-14 md:pt-16 pb-4 px-2 md:px-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1.5 md:gap-2">
             {images.map((image, index) => (
               <button
                 key={index}
@@ -130,15 +130,15 @@ export default function PhotoGallery({ images, onClose, initialIndex = 0 }) {
         </div>
       )}
 
-      {/* Thumbnail Strip (Single View Only) */}
+      {/* Thumbnail Strip (Single View Only - Hidden on small mobile) */}
       {viewMode === 'single' && (
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-4">
-          <div className="flex gap-2 overflow-x-auto justify-center">
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-2 md:p-4">
+          <div className="flex gap-1.5 md:gap-2 overflow-x-auto justify-start md:justify-center pb-1">
             {images.map((image, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden transition-all ${
+                className={`flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-md md:rounded-lg overflow-hidden transition-all ${
                   index === currentIndex
                     ? 'ring-2 ring-white opacity-100'
                     : 'opacity-50 hover:opacity-75'

@@ -11,11 +11,11 @@ export default function PropertyDescription({ property }) {
 
   return (
     <section id="description" className="bg-white border-t border-gray-200">
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          
+      <div className="max-w-6xl mx-auto px-4 py-6 md:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+
           {/* Left Content */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 order-2 lg:order-1">
             {/* Host/Property Type Header */}
             <div className="flex items-center justify-between pb-6 border-b border-gray-200">
               <div>
@@ -98,8 +98,8 @@ export default function PropertyDescription({ property }) {
           </div>
 
           {/* Right Sidebar - Sticky Booking Card */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-8">
+          <div className="lg:col-span-1 order-1 lg:order-2">
+            <div className="lg:sticky lg:top-20">
               <div className="border border-gray-200 rounded-xl p-6 shadow-lg">
                 {/* Price */}
                 <div className="mb-6">
